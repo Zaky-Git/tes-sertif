@@ -13,50 +13,49 @@
         body {
             color: black;
             font-family: 'Times New Roman', Times, serif;
-            text-align: center;
-            position: relative;
-            width: 210mm;
-            height: 297mm;
-
         }
 
         .container {
             vertical-align: middle;
-
-            background-image: url('{{ $imagePath }}');
+            background-image: url('https://wallpaperaccess.com/full/1993006.jpg');
             background-size: cover;
             background-position: center center;
-        }
-
-        .main {
-            padding-top: 80px;
-            padding-left: 50px;
-            padding-right: 50px;
-            padding-bottom: 80px;
+            text-align: center;
+            position: relative;
+            width: 100%;
+            height: 100%;
         }
 
         .subText {
-            font-size: 12px;
+            font-size: 18px;
+        }
+
+        .main {
+            position: absolute;
+            width: 100%;
+            top: 80;
+            left: 0;
+            bottom: 0;
+            right: 0;
         }
 
         .mainText {
-            font-size: 24px;
+            font-size: 32px;
             color: red;
-            margin: 12px auto;
+            margin: 18px auto;
             font-weight: bold;
         }
 
         .tandaTangan {
-            display: flex;
-            justify-content: space-around;
-            font-size: 12px;
-            padding-bottom: 30px;
-
+            width: 100%;
+            font-size: 18px;
+            text-align: start;
         }
 
         .signature {
+            position: absolute;
             width: 25%;
-            text-align: center;
+            bottom: 50;
         }
 
         .red {
@@ -88,11 +87,10 @@
                 {{ $title}}
             </div>
             <div class="mainText">
-                ..............
+                {{$description}}
             </div>
             <div class="subText">
-                yang diselenggarakan pada Hari <span class="red">Selasa, 23 Maret 2021 di MTs Husnul Khotimah Kabupaten
-                    Kuningan</span>
+                yang diselenggarakan pada Hari <span class="red">{{$date}} di {{$place}}</span>
             </div>
             <div class="subText" style="margin-top: 10px;">
                 Bandung, <span class="red">18 April 2021</span>
@@ -100,11 +98,11 @@
 
         </div>
         <div class="tandaTangan">
-            <div class="signature" style="text-align: start;">
+            <div class="signature" style="left: 36;">
                 <div>Direktur PPN <br> Universitas Telkom </div>
                 <div></div>
             </div>
-            <div class="signature" style="text-align: start;">
+            <div class="signature" style="right: 36;">
                 <div>Dekan Fakultas.... <br> Universitas Telkom </div>
                 <div></div>
             </div>

@@ -37,10 +37,11 @@ class CertificateController extends Controller
         $title = $request->input('title');
         $description = $request->input('description');
         $date = $request->input('date');
+        $place = $request->input('place');
         $recipients = $request->input('recipients');
         $imagePath = Storage::disk('public')->get('sertifikat/sertif_master.jpg');
 
-        if (!$title || !$description || !$date || !$recipients || !is_array($recipients)) {
+        if (!$title || !$description || !$date || !$recipients || !$place || !is_array($recipients)) {
             return response()->json(['error' => 'All fields are required and recipients must be an array'], 400);
         }
 
@@ -52,12 +53,8 @@ class CertificateController extends Controller
             foreach ($recipients as $recipient) {
                 $name = $recipient['name'];
                 $role = $recipient['role'];
-                $html = view('certificate', compact('title', 'description', 'date', 'name', 'role', 'imagePath'))->render();
-                $pdf = Pdf::loadHTML($html)->setPaper('A4', 'landscape')
-                    ->setOptions([
-                        'enable_remote' => true,
-                        'chroot' => public_path(),
-                    ]);
+                $html = view('certificate', compact('title', 'description', 'date', 'name', 'role', 'place', 'imagePath'))->render();
+                $pdf = Pdf::loadHTML($html)->setPaper('a4', 'landscape');
                 $pdfContent = $pdf->output();
                 $zip->addFromString($name . '.pdf', $pdfContent);
             }
