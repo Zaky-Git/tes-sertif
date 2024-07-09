@@ -1,0 +1,127 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card tab-card">
+      <div class="card-header text-center text-md-left">
+        Pembuatan Sertifikat
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="generatePDF()" class="md-float-material form-material" #certForm="ngForm">
+          <div class="form-group">
+            <label for="title">Title <b class="text-danger">*</b></label>
+            <input id="title" class="form-control" type="text" [(ngModel)]="title" name="title" required>
+            <div *ngIf="certForm.submitted && !title" class="text-danger">
+              Title is required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description">Deskripsi <b class="text-danger">*</b></label>
+            <input id="description" class="form-control" type="text" [(ngModel)]="description" name="description"
+              required>
+            <div *ngIf="certForm.submitted && !description" class="text-danger">
+              Description is required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="date">Tanggal Penyelenggara <b class="text-danger">*</b></label>
+            <input id="date" class="form-control" type="date" [(ngModel)]="date" name="date" required>
+            <div *ngIf="certForm.submitted && !date" class="text-danger">
+              Date is required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="place">Tempat Selenggara <b class="text-danger">*</b></label>
+            <input id="place" class="form-control" type="text" [(ngModel)]="place" name="place">
+            <div *ngIf="certForm.submitted && !place" class="text-danger">
+              Place is required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="recipients">Daftar Penerima</label>
+            <div class="d-flex flex-column">
+              <input id="recipientName" class="form-control mb-2" type="text" placeholder="Nama Penerima"
+                [(ngModel)]="recipientName" name="recipientName">
+              <input id="recipientRole" class="form-control" type="text" placeholder="Role Penerima"
+                [(ngModel)]="recipientRole" name="recipientRole">
+            </div>
+            <button type="button" class="btn btn-primary mt-3" (click)="addRecipient()">Tambah Penerima</button>
+          </div>
+          <br>
+          <div class="alert alert-success">
+            <div class="row">
+              <p class="col-2 font-weight-bold">• Judul Sertifikat</p>
+              <p class="col-10">: {{ title }}</p>
+            </div>
+            <div class="row">
+              <p class="col-2 font-weight-bold">• Description</p>
+              <p class="col-10">: {{ description }}</p>
+            </div>
+            <div class="row">
+              <p class="col-2 font-weight-bold">• Tanggal selenggara</p>
+              <p class="col-10">: {{ date ? formatDate(date) : '' }}</p>
+            </div>
+            <div class="row">
+              <p class="col-2 font-weight-bold">• Tempat selenggara</p>
+              <p class="col-10">: {{place}}</p>
+            </div>
+            <div class="row">
+              <p class="col-2 font-weight-bold">• Daftar penerima</p>
+              <p class="col-10">:</p>
+            </div>
+            <div *ngFor="let recipient of recipients; let i = index" class="row mb-2">
+              <div class="col-8">
+                <p>{{ i + 1 }}. {{ recipient.name }} ({{ recipient.role }})</p>
+              </div>
+              <div class="col-4 text-right">
+                <button type="button" class="btn btn-sm btn-info mr-1"
+                  (click)="openEditModal(recipient, i)">Edit</button>
+                <button type="button" class="btn btn-sm btn-danger" (click)="deleteRecipient(i)">Delete</button>
+              </div>
+            </div>
+          </div>
+          <div class="float-right mb-3">
+            <button type="submit" class="btn btn-success">
+              <i class="fas fa-arrow-right" aria-hidden="true"></i>Buat Sertif
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" #editModal>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Recipient</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipientNameModal">Nama Penerima</label>
+            <input type="text" class="form-control" id="recipientNameModal" [(ngModel)]="editedRecipient.name">
+          </div>
+          <div class="form-group">
+            <label for="recipientRoleModal">Role Penerima</label>
+            <input type="text" class="form-control" id="recipientRoleModal" [(ngModel)]="editedRecipient.role">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateRecipient()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+  .modal-backdrop {
+    opacity: 0.5 !important;
+    background-color: #000;
+  }
+</style>
