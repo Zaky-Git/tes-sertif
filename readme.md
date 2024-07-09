@@ -39,7 +39,7 @@
 1. Pindah ke direktori frontend:
 
    ```bash
-   cd ../frontend
+   cd frontend
    ```
 
 2. Instal dependensi:
