@@ -17,7 +17,7 @@
 
         .container {
             vertical-align: middle;
-            background-image: url('https://wallpaperaccess.com/full/1993006.jpg');
+            background-image: url('https://s6.imgcdn.dev/L6UQi.png');
             background-size: cover;
             background-position: center center;
             text-align: center;
